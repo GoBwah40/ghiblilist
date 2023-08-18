@@ -14,13 +14,13 @@ export const Header:React.FC = () => {
                 </div>
             </div>
             <div className="navbar-end">
-                <Link href={""} className="px-3">
+                <Link href={"https://ghibliapi.vercel.app/#"} target="blank" className="px-3">
                     <img src="/logos/ghibliLogo.png" className="h-10"></img>
                 </Link>
-                <Link href={""} className="px-3">
+                <Link href={"https://github.com/GoBwah40"} target="blank" className="px-3">
                     <img src="/logos/githubLogo.png" className="h-10"></img>
                 </Link>
-                <Link href={""} className="px-3">
+                <Link href={"https://www.linkedin.com/in/matthias-della-libera-9b6721174/"} target="blank"className="px-3">
                     <img src="/logos/linkedInLogo.png" className="h-10"></img>
                 </Link>
             </div>
