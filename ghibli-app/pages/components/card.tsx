@@ -18,7 +18,7 @@ export const Card: React.FC<CardProps> = (film) => {
     }}>
       <div className="card w-auto bg-base-100 shadow-xl">
         <figure className="">
-          <img src={film.film.image} alt={film.film.title} />
+          <img src={film.film.image} alt={film.film.title} className="rounded-xl"/>
         </figure>
       </div>
       <div className="p-2 justify-end">
