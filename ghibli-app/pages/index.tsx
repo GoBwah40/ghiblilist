@@ -27,10 +27,17 @@ function HomePage() {
 
   return (
       <ul className='grid grid-cols-5 gap-4 pt-10'>
-          {films!.map((film, index) => (
-            <div className='shadow-xl'>
-              <Card film={film}></Card>
-            </div>
+          {films.map((film, index) => (
+            <li className='shadow-xl' key={film.id}>
+              <Card film={{
+                desciption: film.description,
+                title: film.title,
+                image: film.image,
+                id: film.id,
+                movie_banner: film.movie_banner,
+                original_title_romanised: film.original_title_romanised
+              }}></Card>
+            </li>
           ))}
       </ul>
   );
