@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Banner } from "@/pages/components/banner";
 import { Avatar } from "@/pages/components/avatar";
+import Link from "next/link";
 
 function FilmPage() {
   const [film, setFilm] = useState<Film | null>(null);
@@ -30,7 +31,7 @@ function FilmPage() {
   console.log(film);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-2">
       {film != undefined ? (
         <div className=" flex pr-2 pl-2">
           <aside className="w-1/3 border-solid border-4 rounded-xl" style={{
@@ -44,6 +45,7 @@ function FilmPage() {
                 borderColor: "rgb(7, 157, 236)",
               }}
             />
+            <h1 className="text-3xl text-center font-bold py-2">{film.title}</h1>
           </aside>
           <aside className="w-full grid pl-2">
             <Banner
@@ -120,7 +122,7 @@ function FilmPage() {
               <aside className="border-4 rounded-xl w-2/6" style={{
                 borderColor: "rgb(7, 157, 236)"
               }}>
-                <h1 className="text-white font-bold text-xl text-center pt-2 underline">Synopsis :</h1>
+                <h1 className="text-white font-bold text-xl text-center py-1 underline">Synopsis :</h1>
                 <p className="text-justify p-2">{film.description}</p>
               </aside>
                 </div>
@@ -129,6 +131,12 @@ function FilmPage() {
       ) : (
         <span className="loading loading-ball loading-lg"></span>
       )}
+      <div className="justify-center flex py-10">
+      <button className="btn btn-primary text-5xl h-20 font-normal normal-case" style={{
+            borderColor: "rgb(7, 157, 236)",
+            backgroundColor: "rgb(7, 157, 236)"
+          }}><Link href={"../"}>Back</Link></button>
+      </div>
     </div>
   );
 }
