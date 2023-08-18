@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ghibliApi from './api/ghibliApi';
 import { Card } from './components/card';
+;
 
 
 function HomePage() {
@@ -29,7 +29,7 @@ function HomePage() {
       <ul className='grid grid-cols-5 gap-4 pt-10'>
           {films!.map((film, index) => (
             <div className='shadow-xl'>
-              <Card title={film.title} image={film.image} desciption={film.desciption} id={film.id} movie_banner={film.movie_banner} original_title_romanised={film.original_title_romanised}></Card>
+              <Card film={film}></Card>
             </div>
           ))}
       </ul>

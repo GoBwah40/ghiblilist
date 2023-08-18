@@ -3,7 +3,7 @@ import Link from "next/link"
 export const Header:React.FC = () => {
     return <div className="navbar" color="#282c34">
             <div className="navbar-start">
-                <Link href={""} className="btn btn-ghost">
+                <Link href={"/"} className="btn btn-ghost">
                 <img src="/logos/logoMGL.png" className="h-12"></img>
                 </Link>
                 <p className="px-3 text-2xl font-bold text-neutral-50">The GhibliList</p>
