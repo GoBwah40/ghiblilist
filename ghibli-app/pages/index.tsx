@@ -28,7 +28,7 @@ function HomePage() {
   return (
       <ul className='grid grid-cols-5 gap-4 pt-10'>
           {films.map((film, index) => (
-            <li className='shadow-xl' key={film.id}>
+            <li className='p-1' key={film.id}>
               <Card film={{
                 desciption: film.description,
                 title: film.title,

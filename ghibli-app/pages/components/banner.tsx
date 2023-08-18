@@ -8,10 +8,10 @@ interface CardProps {
 
 export const Banner: React.FC<CardProps> = (info) => {
     return <div
-    className="hero h-60 rounded-xl"
+    className="hero rounded-xl border-solid border-4 h-80"
     style={{
       backgroundImage: `url(${info.info.image})`,
-      backgroundSize: "fill",
+      borderColor: "rgb(7, 157, 236)"
     }}
   >
     <div className="hero-overlay bg-opacity-60 h-32">

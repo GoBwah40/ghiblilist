@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Banner } from "@/pages/components/banner";
+import { Avatar } from "@/pages/components/avatar";
 
 function FilmPage() {
   const [film, setFilm] = useState<Film | null>(null);
@@ -14,7 +15,7 @@ function FilmPage() {
         try {
           const response = await axios.get(
             `https://ghibliapi.vercel.app/films/${id}`
-          ); // Remplacez avec votre API route
+          );
           const data: Film = response.data;
           setFilm(data);
         } catch (error) {
@@ -30,19 +31,104 @@ function FilmPage() {
 
   return (
     <div className="min-h-screen">
-      {film != undefined ? <div className=" flex p-10">
-        <aside className="w-1/4 pr-5">
-          <img src={film?.image} alt={film?.title} className="rounded-xl" />
-        </aside>
-        <aside className="w-3/4 grid grid-rows-1">
-          <Banner info={{
-            image: film.movie_banner,
-            title: film.original_title_romanised,
-            titre_romanji: film.original_title
-          }}></Banner>
-        </aside>
-      </div> : <span className="loading loading-ball loading-lg"></span>}
-      
+      {film != undefined ? (
+        <div className=" flex pr-2 pl-2">
+          <aside className="w-1/3 border-solid border-4 rounded-xl" style={{
+            borderColor: "rgb(7, 157, 236)"
+          }}>
+            <img
+              src={film.image}
+              alt={film.title}
+              className="rounded-xl"
+              style={{
+                borderColor: "rgb(7, 157, 236)",
+              }}
+            />
+          </aside>
+          <aside className="w-full grid pl-2">
+            <Banner
+              info={{
+                image: film.movie_banner,
+                title: film.original_title_romanised,
+                titre_romanji: film.original_title,
+              }}
+            ></Banner>
+            <div
+              className="flex"
+              style={{
+                borderColor: "rgb(7, 157, 236)",
+              }}>
+              <aside className="border-4 rounded-xl w-4/6" style={{
+                borderColor: "rgb(7, 157, 236)"
+              }}>
+              <div className="flex justify-around">
+                {film.director != undefined ? (
+                  <div className="p-2">
+                    <Avatar
+                      info={{
+                        function: "Director :",
+                        name: film.director,
+                      }}
+                    ></Avatar>
+                  </div>
+                ) : null}
+                {film.producer != undefined ? (
+                  <div className="p-2">
+                    <Avatar
+                      info={{
+                        function: "Producer :",
+                        name: film.producer,
+                      }}
+                    ></Avatar>
+                  </div>
+                ) : null}
+              </div>
+              <div className="flex justify-around">
+                {film.release_date != undefined ? (
+                  <div className="p-2">
+                    <Avatar
+                      info={{
+                        function: "Release date :",
+                        name: film.release_date,
+                      }}
+                    ></Avatar>
+                  </div>
+                ) : null}
+                {film.rt_score != undefined ? (
+                  <div className="p-2">
+                    <Avatar
+                      info={{
+                        function: "Score :",
+                        name: film.rt_score + "/100",
+                      }}
+                    ></Avatar>
+                  </div>
+                ) : null}
+                {film.running_time != undefined ? (
+                  <div className="p-2">
+                    <Avatar
+                      info={{
+                        function: "Duration :",
+                        name: film.running_time + " min",
+                      }}
+                    ></Avatar>
+                  </div>
+                ) : null}
+              </div>
+              </aside>
+              <aside className="w-2"></aside>
+              <aside className="border-4 rounded-xl w-2/6" style={{
+                borderColor: "rgb(7, 157, 236)"
+              }}>
+                <h1 className="text-white font-bold text-xl text-center pt-2 underline">Synopsis :</h1>
+                <p className="text-justify p-2">{film.description}</p>
+              </aside>
+                </div>
+          </aside>
+        </div>
+      ) : (
+        <span className="loading loading-ball loading-lg"></span>
+      )}
     </div>
   );
 }
