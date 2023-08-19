@@ -4,6 +4,8 @@ import { Card } from './components/card';
 
 
 function HomePage() {
+
+
   var [films, setFilms] = useState<Film[]>();
   if (films == null || films == undefined){
     films = [];
@@ -13,7 +15,7 @@ function HomePage() {
     async function fetchData() {
       try {
         const uri = 'films'; // Modifier avec l'URI souhaité
-        const response = await fetch(`https://ghibliapi.vercel.app/${uri}`);
+        const response = await fetch(`http://localhost:3000/api/ghibliApi`);
         const data: Film[] = await response.json();
         setFilms(data);
       } catch (error) {
@@ -22,7 +24,6 @@ function HomePage() {
     }
 
     fetchData();
-    console.log(films);
   }, []);
 
   return (
