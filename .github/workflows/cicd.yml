@@ -42,6 +42,9 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('**/package-lock.json') }}
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Running tests
         run: npm test
 
@@ -56,8 +59,8 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Change directory
-        run: cd ..
+      - name: Install dependencies
+        run: npm install
 
       - name: Build project
         run: npm run build
