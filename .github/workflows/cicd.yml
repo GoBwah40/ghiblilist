@@ -25,10 +25,5 @@ jobs:
       - name: Run tests
         run: npm test
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy to production
+      - name: Build project
         run: npm run build
