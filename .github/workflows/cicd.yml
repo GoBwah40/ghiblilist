@@ -46,7 +46,7 @@ jobs:
         run: npm test
 
   Build:
-    needs: Tests
+    needs: Install
     runs-on: ubuntu-latest
 
     steps:
