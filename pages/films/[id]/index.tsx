@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { Banner } from '@/pages/components/banner';
 import { Avatar } from '@/pages/components/avatar';
 import Link from 'next/link';
+import { Film } from '@/model/film';
+import Image from 'next/image';
 
 function FilmPage() {
   const [film, setFilm] = useState<Film | null>(null);
@@ -38,7 +40,7 @@ function FilmPage() {
               borderColor: 'rgb(7, 157, 236)',
             }}
           >
-            <img
+            <Image
               src={film.image}
               alt={film.title}
               className="rounded-xl"

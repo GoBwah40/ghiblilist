@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface CardProps {
   info: {
     function: string;
@@ -12,7 +14,7 @@ export const Avatar: React.FC<CardProps> = (info) => {
         <h1 className="text-center underline">{info.info.function}</h1>
         <div className="avatar">
           <div className="w-12 rounded">
-            <img src="/ghibli_avatar.png" alt="Avatar" />
+            <Image src="/ghibli_avatar.png" alt="Avatar" />
           </div>
         </div>
         <h1 className="text-center p-3 font-bold text-xl">{info.info.name}</h1>

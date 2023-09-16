@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from './components/card';
+import { Film } from '@/model/film';
+
 function HomePage() {
-  var [films, setFilms] = useState<Film[]>();
+  const [films, setFilms] = useState<Film[]>([]);
   if (films == null || films == undefined) {
-    films = [];
+    setFilms([]);
   }
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const uri = 'films'; // Modifier avec l'URI souhaité
         const response = await fetch(`http://localhost:3000/api/ghibliApi`);
         const data: Film[] = await response.json();
         setFilms(data);
@@ -23,7 +24,7 @@ function HomePage() {
 
   return (
     <ul className="grid grid-cols-5 gap-4 pt-10">
-      {films.map((film, index) => (
+      {films.map((film) => (
         <li className="p-1" key={film.id}>
           <Card
             film={{

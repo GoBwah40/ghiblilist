@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Image from 'next/image';
 
 export const Footer: React.FC = () => {
   return (
@@ -28,10 +28,10 @@ export const Footer: React.FC = () => {
           <span className="footer-title text-black">Social network & API</span>
           <div className="flex">
             <a className="link link-hover btn btn-ghost">
-              <img src="/logos/githubLogo.png" alt="github" className="h-5" />
+              <Image src={'/logos/githubLogo.png'} alt={'github'} className="h-5" />
             </a>
             <a className="link link-hover btn btn-ghost">
-              <img src="/logos/linkedInLogo.png" alt="linkedin" className="h-5" />
+              <Image src={'/logos/linkedInLogo.png'} alt={'linkedin'} className="h-5" />
             </a>
           </div>
         </div>
@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
       >
         <div className="items-center grid-flow-row justify-items-center w-full">
           <div className="h-0.5 bg-black mx-auto my-4 w-2/3"></div>
-          <img src="/logos/favicon.png" alt="gobwah logo" className="justify-center h-7" />
+          <Image src={'/logos/favicon.png'} alt={'gobwah logo'} className="justify-center h-7" />
           <p className="text-center text-black">Make and build by Matthias Della Libera</p>
           <p className="text-center text-black">Copyright © 2023 - All right reserved</p>
         </div>
