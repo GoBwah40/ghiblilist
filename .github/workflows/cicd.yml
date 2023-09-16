@@ -23,6 +23,7 @@ jobs:
         run: npm install
 
   Tests:
+    needs: Install
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +31,7 @@ jobs:
         run: npm test
 
   Build:
+    needs: Tests
     runs-on: ubuntu-latest
 
     steps:
