@@ -14,6 +14,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -27,6 +35,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Restore Node.js dependencies from cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+
       - name: Running tests
         run: npm test
 
@@ -35,6 +49,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Restore Node.js dependencies from cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+
       - name: Change directory
         run: cd ..
 
