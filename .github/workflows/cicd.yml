@@ -25,13 +25,16 @@ jobs:
   Tests:
     runs-on: ubuntu-latest
 
-    - name: Running tests
+    steps: # Ajouté une section "steps" pour définir les étapes
+      - name: Running tests
         run: npm test
-  
+
   Build:
     runs-on: ubuntu-latest
 
-    before: cd ../
+    steps: # Ajouté une section "steps" pour définir les étapes
+      - name: Change directory
+        run: cd .. # La commande "cd" est correcte, mais la syntaxe doit être "run: cd .."
 
-    - name: Build project
+      - name: Build project
         run: npm run build
