@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export const Footer: React.FC = () => {
+const Footer: React.FC = () => {
   return (
     <div>
       <footer
@@ -52,3 +52,5 @@ export const Footer: React.FC = () => {
     </div>
   );
 };
+
+export default Footer;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from './components/card';
 import { Film } from '@/model/film';
+import Card from './components/card';
 
 function HomePage() {
   const [films, setFilms] = useState<Film[]>([]);
@@ -27,15 +27,13 @@ function HomePage() {
       {films.map((film) => (
         <li className="p-1" key={film.id}>
           <Card
-            film={{
-              desciption: film.description,
-              title: film.title,
-              image: film.image,
-              id: film.id,
-              movie_banner: film.movie_banner,
-              original_title_romanised: film.original_title_romanised,
-            }}
-          ></Card>
+            desciption={film.description}
+            title={film.title}
+            image={film.image}
+            id={film.id}
+            movie_banner={film.movie_banner}
+            original_title_romanised={film.original_title_romanised}
+          />
         </li>
       ))}
     </ul>

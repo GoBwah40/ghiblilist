@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Banner } from '@/pages/components/banner';
-import { Avatar } from '@/pages/components/avatar';
 import Link from 'next/link';
 import { Film } from '@/model/film';
 import Image from 'next/image';
+import Banner from '@/pages/components/banner';
+import Avatar from '@/pages/components/avatar';
 
 function FilmPage() {
   const [film, setFilm] = useState<Film | null>(null);
@@ -52,12 +52,10 @@ function FilmPage() {
           </aside>
           <aside className="w-full grid pl-2">
             <Banner
-              info={{
-                image: film.movie_banner,
-                title: film.original_title_romanised,
-                titre_romanji: film.original_title,
-              }}
-            ></Banner>
+              image={film.movie_banner}
+              title={film.original_title_romanised}
+              titre_romanji={film.original_title}
+            />
             <div
               className="flex"
               style={{
@@ -73,54 +71,29 @@ function FilmPage() {
                 <div className="flex justify-around">
                   {film.director != undefined ? (
                     <div className="p-2">
-                      <Avatar
-                        info={{
-                          function: 'Director :',
-                          name: film.director,
-                        }}
-                      ></Avatar>
+                      <Avatar name={film.description} function="Director:" />
                     </div>
                   ) : null}
                   {film.producer != undefined ? (
                     <div className="p-2">
-                      <Avatar
-                        info={{
-                          function: 'Producer :',
-                          name: film.producer,
-                        }}
-                      ></Avatar>
+                      <Avatar function="Producer: " name={film.producer} />
                     </div>
                   ) : null}
                 </div>
                 <div className="flex justify-around">
                   {film.release_date != undefined ? (
                     <div className="p-2">
-                      <Avatar
-                        info={{
-                          function: 'Release date :',
-                          name: film.release_date,
-                        }}
-                      ></Avatar>
+                      <Avatar function="Release date :" name={film.release_date} />
                     </div>
                   ) : null}
                   {film.rt_score != undefined ? (
                     <div className="p-2">
-                      <Avatar
-                        info={{
-                          function: 'Score :',
-                          name: film.rt_score + '/100',
-                        }}
-                      ></Avatar>
+                      <Avatar function="Score :" name={film.rt_score + '/100'} />
                     </div>
                   ) : null}
                   {film.running_time != undefined ? (
                     <div className="p-2">
-                      <Avatar
-                        info={{
-                          function: 'Duration :',
-                          name: film.running_time + ' min',
-                        }}
-                      ></Avatar>
+                      <Avatar function="Duration :" name={film.running_time + ' min'} />
                     </div>
                   ) : null}
                 </div>

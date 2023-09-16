@@ -1,16 +1,16 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-import { Header } from './components/navbar';
-import { Footer } from './components/footer';
+import Navbar from './components/navbar';
+import Footer from './components/footer';
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
         <link rel="shortcut icon" href="/logos/favicon.ico" />
-        <title>Ghibli List</title>
+        Ghibli List
       </Head>
       <body>
-        <Header></Header>
+        <Navbar></Navbar>
         <Main />
         <NextScript />
         <Footer></Footer>

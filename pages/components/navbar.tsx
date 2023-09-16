@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export const Header: React.FC = () => {
+const Navbar = () => {
   return (
     <div
       className="navbar"
@@ -33,3 +33,4 @@ export const Header: React.FC = () => {
     </div>
   );
 };
+export default Navbar;
