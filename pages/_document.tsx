@@ -1,6 +1,6 @@
-import { Html, Head, Main, NextScript } from 'next/document'
-import { Header } from './components/navbar'
-import { Footer } from './components/footer'
+import { Html, Head, Main, NextScript } from 'next/document';
+import { Header } from './components/navbar';
+import { Footer } from './components/footer';
 
 export default function Document() {
   return (
@@ -10,11 +10,11 @@ export default function Document() {
         <title>Ghibli List</title>
       </Head>
       <body>
-      <Header></Header>
+        <Header></Header>
         <Main />
         <NextScript />
         <Footer></Footer>
       </body>
     </Html>
-  )
+  );
 }

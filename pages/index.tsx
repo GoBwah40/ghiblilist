@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from './components/card';
-;
-
-
 function HomePage() {
-
-
   var [films, setFilms] = useState<Film[]>();
-  if (films == null || films == undefined){
+  if (films == null || films == undefined) {
     films = [];
   }
 
@@ -27,20 +22,22 @@ function HomePage() {
   }, []);
 
   return (
-      <ul className='grid grid-cols-5 gap-4 pt-10'>
-          {films.map((film, index) => (
-            <li className='p-1' key={film.id}>
-              <Card film={{
-                desciption: film.description,
-                title: film.title,
-                image: film.image,
-                id: film.id,
-                movie_banner: film.movie_banner,
-                original_title_romanised: film.original_title_romanised 
-              }}></Card>
-            </li>
-          ))}
-      </ul>
+    <ul className="grid grid-cols-5 gap-4 pt-10">
+      {films.map((film, index) => (
+        <li className="p-1" key={film.id}>
+          <Card
+            film={{
+              desciption: film.description,
+              title: film.title,
+              image: film.image,
+              id: film.id,
+              movie_banner: film.movie_banner,
+              original_title_romanised: film.original_title_romanised,
+            }}
+          ></Card>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -51,7 +48,4 @@ function removeMoviesContainingInput(input: string, list: Film[]): Film[] {
   return list;
 }
 
-
 export default HomePage;
-
-
