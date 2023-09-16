@@ -26,9 +26,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clean cache
-        run: npm cache clean
-
       - name: Running tests
         run: npm test
 
@@ -38,9 +35,6 @@ jobs:
     steps:
       - name: Change directory
         run: cd ..
-
-      - name: Clean cache
-        run: npm cache clean
 
       - name: Build project
         run: npm run build
