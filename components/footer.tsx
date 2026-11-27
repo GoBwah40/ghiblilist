@@ -51,7 +51,7 @@ const Footer = () => {
       </div>
       <div className="flex flex-col items-center gap-1 px-5 pb-6 text-center">
         <div className="mb-3 h-0.5 w-2/3 bg-black" aria-hidden="true" />
-        <Image src="/logos/favicon.png" alt="" width={28} height={28} />
+        <Image src="/logos/gobwah.png" alt="" width={28} height={28} />
         <p>Made and built by Matthias Della Libera</p>
         <p>Copyright © 2023 - All rights reserved</p>
       </div>

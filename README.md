@@ -71,6 +71,10 @@ npm run test:e2e                  # or npm run test:e2e:ui to watch them run
 
 The build goes to `.next-e2e/`, so it never overwrites a running `npm run dev`.
 
+## Logo
+
+`public/logos/logo.svg` is the source of every icon (favicon, Apple touch icon, PWA icons): a checklist under a sun, over two hills in the site's blue. It is an original design and uses no Studio Ghibli artwork.
+
 ## Project layout
 
 ```

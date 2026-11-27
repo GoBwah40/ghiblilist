@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="The GhibliList">
+  <defs>
+    <clipPath id="tile"><rect width="64" height="64" rx="14"/></clipPath>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="64" height="64" fill="#282c34"/>
+    <circle cx="47" cy="20" r="7.5" fill="#ffd166"/>
+    <path d="M-2 47 C12 37 24 37 36 44 C46 50 56 44 66 37 V66 H-2Z" fill="#0b6fa8"/>
+    <path d="M-2 55 C10 48 22 49 32 53 C44 58 54 54 66 49 V66 H-2Z" fill="#079dec"/>
+  </g>
+  <g stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M11 17.5 l3.5 3.5 L21.5 14"/>
+    <path d="M27 18 H33.5"/>
+    <path d="M11 30.5 l3.5 3.5 L21.5 27"/>
+    <path d="M27 31 H52"/>
+  </g>
+</svg>

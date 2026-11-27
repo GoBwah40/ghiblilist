@@ -25,7 +25,7 @@ const Navbar = () => {
           className="btn h-auto gap-2 px-1 py-1 text-lg font-bold whitespace-nowrap text-black btn-ghost hover:bg-black/10 sm:text-2xl"
         >
           <Image
-            src="/logos/favicon.png"
+            src="/logos/logo.svg"
             alt=""
             width={48}
             height={48}
