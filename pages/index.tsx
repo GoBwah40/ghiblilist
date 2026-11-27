@@ -70,7 +70,7 @@ export default function HomePage({ films }: HomePageProps) {
         >
           {visibleFilms.map((film, index) => (
             <li key={film.id}>
-              <Card film={film} priority={index < 5} />
+              <Card film={film} priority={index < 2} />
             </li>
           ))}
         </ul>

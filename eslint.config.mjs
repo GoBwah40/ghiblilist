@@ -11,5 +11,5 @@ export default defineConfig([
     files: ['**/*.{js,jsx,ts,tsx}'],
     rules: jsxA11y.flatConfigs.strict.rules,
   },
-  globalIgnores(['.next/**', '.next-e2e/**', 'test-results/**', 'playwright-report/**', 'out/**', 'build/**', 'coverage/**', 'next-env.d.ts']),
+  globalIgnores(['.next/**', '.next-e2e/**', 'test-results/**', 'playwright-report/**', '.lighthouseci/**', 'out/**', 'build/**', 'coverage/**', 'next-env.d.ts']),
 ]);

@@ -8,6 +8,8 @@ Data comes from the community [Studio Ghibli API](https://ghibliapi.vercel.app/)
 
 The site targets **WCAG 2.2 level AA**.
 
+**Lighthouse (mobile, throttled): Accessibility 100 · Best Practices 100 · SEO 100 · Performance 94–99.** The accessibility score is enforced in CI: the build fails if it drops below 100.
+
 - **Keyboard**: a "Skip to main content" link is the first focusable element. Every link and field has a visible focus ring (white ring + black halo, readable on both the dark background and the blue header).
 - **Contrast**: every text is at least 5.6:1 (AA asks for 4.5:1), and black on the Ghibli blue is 7:1. Text over the film banners stays above 5.7:1 even on the brightest image.
 - **Screen readers**: semantic landmarks (header, nav, main, footer), one `h1` per page, a page title per film, decorative images hidden (`alt=""`), Japanese titles tagged with `lang="ja"`. External links say they open a new tab.
@@ -21,6 +23,9 @@ Checked automatically on every CI run:
 - [axe-core](https://github.com/dequelabs/axe-core) on the components, WCAG 2.0 → 2.2 A/AA rules (`npm test`)
 - axe-core again in a real Chromium, desktop and mobile, on the home page, a search with no result, a film page and the 404 — this run includes colour contrast (`npm run test:e2e`)
 - Playwright keyboard scenarios: skip link, reaching a film with the keyboard only, visible focus ring, `prefers-reduced-motion`, 24 × 24 px targets
+- [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) on the home and film pages, accessibility score asserted at 100 (`npm run lighthouse`)
+
+Automated tools catch only part of the issues, so a manual screen-reader pass is described in [docs/test-voiceover.md](docs/test-voiceover.md) (VoiceOver + Safari).
 
 Contrast, reflow and target sizes were also measured in the browser at 1280 px and 320 px.
 
@@ -43,16 +48,17 @@ Then open [http://localhost:3000](http://localhost:3000).
 
 ## Scripts
 
-| Command             | Description                   |
-| ------------------- | ----------------------------- |
-| `npm run dev`       | Development server            |
-| `npm run build`     | Production build              |
-| `npm start`         | Serve the production build    |
-| `npm run lint`      | ESLint                        |
-| `npm run typecheck` | TypeScript check              |
-| `npm test`          | Unit tests (Vitest)           |
-| `npm run test:e2e`  | End-to-end tests (Playwright) |
-| `npm run pretty`    | Format the code with Prettier |
+| Command              | Description                   |
+| -------------------- | ----------------------------- |
+| `npm run dev`        | Development server            |
+| `npm run build`      | Production build              |
+| `npm start`          | Serve the production build    |
+| `npm run lint`       | ESLint                        |
+| `npm run typecheck`  | TypeScript check              |
+| `npm test`           | Unit tests (Vitest)           |
+| `npm run test:e2e`   | End-to-end tests (Playwright) |
+| `npm run lighthouse` | Lighthouse CI audit           |
+| `npm run pretty`     | Format the code with Prettier |
 
 ## End-to-end tests
 
