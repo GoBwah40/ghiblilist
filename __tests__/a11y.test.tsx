@@ -3,25 +3,25 @@ import axe from 'axe-core';
 import { describe, expect, it } from 'vitest';
 import Footer from '@/components/footer';
 import Navbar from '@/components/navbar';
-import { toFilm } from '@/lib/ghibli';
 import FilmPage from '@/pages/films/[id]';
 import HomePage from '@/pages/index';
+import type { Film } from '@/model/film';
 
-const totoro = toFilm({
-  id: '58611129-2dbc-4a81-a72f-77ddfc1b1b49',
+const totoro: Film = {
+  id: '8392',
   title: 'My Neighbor Totoro',
   original_title: 'となりのトトロ',
   original_title_romanised: 'Tonari no Totoro',
   image: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/totoro.jpg',
-  movie_banner: 'https://image.tmdb.org/t/p/original/totoro-banner.jpg',
+  movie_banner: 'https://image.tmdb.org/t/p/w1280/totoro-banner.jpg',
   description: 'Two sisters move to the country with their father.',
   director: 'Hayao Miyazaki',
-  producer: 'Hayao Miyazaki',
+  producer: 'Toru Hara',
   release_date: '1988',
   running_time: '86',
-  rt_score: '93',
-});
-const ponyo = toFilm({ ...totoro, id: 'ponyo', title: 'Ponyo', release_date: '2008' });
+  rating: '8.1',
+};
+const ponyo: Film = { ...totoro, id: '12429', title: 'Ponyo', release_date: '2008' };
 
 /** Lance axe-core (WCAG 2.0 à 2.2, niveaux A et AA + bonnes pratiques) sur le rendu. */
 async function expectNoViolations(container: HTMLElement) {

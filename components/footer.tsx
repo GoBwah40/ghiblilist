@@ -5,7 +5,7 @@ const stackLinks = [
   { label: 'Next.js', href: 'https://nextjs.org/' },
   { label: 'Tailwind CSS', href: 'https://tailwindcss.com/' },
   { label: 'daisyUI', href: 'https://daisyui.com/' },
-  { label: 'Studio Ghibli API', href: 'https://ghibliapi.vercel.app/' },
+  { label: 'TMDB API', href: 'https://www.themoviedb.org/' },
 ];
 
 const Footer = () => {
@@ -53,6 +53,11 @@ const Footer = () => {
         />
         <p>Made and built by Matthias Della Libera</p>
         <p>Copyright © 2023 - All rights reserved</p>
+        {/* Mention exigée par les conditions d'utilisation de l'API TMDB. */}
+        <p className="mt-2 max-w-md text-sm opacity-80">
+          Film data and images from TMDB. This product uses the TMDB API but is not endorsed or
+          certified by TMDB.
+        </p>
       </div>
     </footer>
   );

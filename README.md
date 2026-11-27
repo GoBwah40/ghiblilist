@@ -2,7 +2,11 @@
 
 Catalogue of Studio Ghibli feature films: posters, banner, synopsis, director, producer, release date, score and duration for each film, plus a search across English, original and romanised titles.
 
-Data comes from the community [Studio Ghibli API](https://ghibliapi.vercel.app/). Pages are generated at build time and revalidated once a day (ISR), so the site stays up even if the API is briefly unavailable.
+Data comes from [TMDB](https://www.themoviedb.org/) (Studio Ghibli = company 10342): every animated feature film the studio has released, with posters, banners, synopsis, director, producer, runtime and TMDB rating. The community Studio Ghibli API used until 2026 has been frozen since 2022 and stopped at 2021. Pages are generated at build time and revalidated once a day (ISR), so new films appear on their own and the site stays up even if TMDB is briefly unavailable.
+
+Short films (under 60 minutes), non-animated titles, unreleased films and films not produced by Ghibli are filtered out (`lib/ghibli.ts`).
+
+_This product uses the TMDB API but is not endorsed or certified by TMDB._
 
 ## Accessibility
 
@@ -37,12 +41,15 @@ Contrast, reflow and target sizes were also measured in the browser at 1280 px a
 
 ## Getting started
 
-Requires Node.js 20.9 or later.
+Requires Node.js 20.9 or later and a free TMDB API key ([themoviedb.org → Settings → API](https://www.themoviedb.org/settings/api)). Either the v3 API key or the v4 read access token works.
 
 ```bash
+cp .env.example .env.local   # then paste your key after TMDB_API_KEY=
 npm install
 npm run dev
 ```
+
+On Vercel, add `TMDB_API_KEY` in Project Settings → Environment Variables.
 
 Then open [http://localhost:3000](http://localhost:3000).
 
@@ -62,7 +69,7 @@ Then open [http://localhost:3000](http://localhost:3000).
 
 ## End-to-end tests
 
-Playwright runs the production build against a local fake of the Studio Ghibli API (`e2e/fixture-server.mjs`, data frozen in `e2e/fixtures/films.json`), so the tests don't depend on the network. Each scenario runs on desktop Chrome and on a mobile viewport (Pixel 7).
+Playwright runs the production build against a local fake of the TMDB API (`e2e/fixture-server.mjs`, data frozen in `e2e/fixtures/tmdb-movies.json`, including a Ghibli short film and a non-Ghibli film that must be filtered out), so the tests need neither the network nor a key. Each scenario runs on desktop Chrome and on a mobile viewport (Pixel 7).
 
 ```bash
 npx playwright install chromium   # first time only
@@ -92,7 +99,7 @@ Every theme defines the same CSS tokens (`styles/globals.css`); components only 
 
 ```
 components/   Navbar, footer, film card, banner, detail block
-lib/ghibli.ts Studio Ghibli API client, data normalisation and search
+lib/ghibli.ts TMDB client, Ghibli filmography filter, mapping and search
 model/        Film type
 pages/        Home page (/) and film page (/films/[id])
 __tests__/    Unit tests

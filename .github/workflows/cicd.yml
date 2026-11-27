@@ -30,8 +30,14 @@ jobs:
       - name: Tests
         run: npm test
 
-      - name: Build
-        run: npm run build
+      # Sans clé TMDB en CI : le build utilise le faux serveur TMDB des tests.
+      - name: Build (fake TMDB API)
+        run: |
+          node e2e/fixture-server.mjs &
+          sleep 1
+          npm run build
+        env:
+          TMDB_API_URL: http://127.0.0.1:4010
 
   e2e:
     runs-on: ubuntu-latest

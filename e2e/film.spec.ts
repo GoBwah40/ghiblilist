@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const SPIRITED_AWAY = '/films/dc2e6bd1-8156-4886-adff-b39e6043af0c';
+const SPIRITED_AWAY = '/films/129';
 
 test.describe('fiche film', () => {
   test('affiche les informations du film', async ({ page }) => {
@@ -16,7 +16,7 @@ test.describe('fiche film', () => {
       'Hayao Miyazaki',
       'Toshio Suzuki',
       '2001',
-      '97/100',
+      '9.7/10',
       '124 min',
     ]);
 
@@ -34,6 +34,16 @@ test.describe('fiche film', () => {
     const response = await page.goto('/films/does-not-exist');
     expect(response?.status()).toBe(404);
     await expect(page.getByText('This page could not be found.')).toBeVisible();
+  });
+
+  test("un film TMDB qui n'est pas un Ghibli renvoie une 404", async ({ page }) => {
+    const response = await page.goto('/films/550');
+    expect(response?.status()).toBe(404);
+  });
+
+  test("un court métrage Ghibli n'a pas de fiche", async ({ page }) => {
+    const response = await page.goto('/films/800001');
+    expect(response?.status()).toBe(404);
   });
 
   test('le logo ramène à l’accueil depuis une fiche', async ({ page }) => {

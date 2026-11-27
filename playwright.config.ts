@@ -31,7 +31,7 @@ export default defineConfig({
       command: `next build && next start -p ${PORT}`,
       url: baseURL,
       env: {
-        GHIBLI_API_URL: `http://127.0.0.1:${FIXTURE_PORT}`,
+        TMDB_API_URL: `http://127.0.0.1:${FIXTURE_PORT}`,
         NEXT_DIST_DIR: '.next-e2e',
       },
       timeout: 180_000,

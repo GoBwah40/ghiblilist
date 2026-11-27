@@ -31,7 +31,7 @@ export default function FilmPage({ film }: FilmPageProps) {
     { label: 'Director', value: film.director },
     { label: 'Producer', value: film.producer },
     { label: 'Release date', value: film.release_date },
-    { label: 'Score', value: film.rt_score && `${film.rt_score}/100` },
+    { label: 'TMDB rating', value: film.rating && `${film.rating}/10` },
     { label: 'Duration', value: film.running_time && `${film.running_time} min` },
   ].filter((detail) => detail.value);
 

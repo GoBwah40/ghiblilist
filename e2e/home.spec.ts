@@ -17,6 +17,9 @@ test.describe("page d'accueil", () => {
     // Triés par date de sortie.
     await expect(films.first()).toContainText('Castle in the Sky');
     await expect(films.last()).toContainText('Earwig and the Witch');
+    // Les leurres du faux serveur TMDB (court métrage, film hors Ghibli) sont écartés.
+    await expect(page.getByText('Mei and the Kitten Bus')).toHaveCount(0);
+    await expect(page.getByText('Not a Ghibli film')).toHaveCount(0);
   });
 
   test('la recherche filtre et annonce le nombre de résultats', async ({ page }) => {
@@ -52,7 +55,7 @@ test.describe("page d'accueil", () => {
 
   test('une carte mène à la fiche du film', async ({ page }) => {
     await page.getByRole('link', { name: /^Spirited Away/ }).click();
-    await expect(page).toHaveURL(/\/films\/dc2e6bd1-8156-4886-adff-b39e6043af0c$/);
+    await expect(page).toHaveURL(/\/films\/129$/);
     await expect(page.getByRole('heading', { level: 1, name: 'Spirited Away' })).toBeVisible();
   });
 

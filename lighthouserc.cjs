@@ -8,7 +8,7 @@ module.exports = {
       startServerReadyTimeout: 180000,
       url: [
         'http://127.0.0.1:3200/',
-        'http://127.0.0.1:3200/films/dc2e6bd1-8156-4886-adff-b39e6043af0c',
+        'http://127.0.0.1:3200/films/129',
       ],
       numberOfRuns: 1,
       settings: {

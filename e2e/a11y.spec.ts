@@ -30,7 +30,7 @@ for (const theme of THEMES) {
     });
 
     test('fiche film', async ({ page }) => {
-      await page.goto('/films/dc2e6bd1-8156-4886-adff-b39e6043af0c');
+      await page.goto('/films/129');
       await expectNoA11yViolations(page);
     });
   });
@@ -50,7 +50,7 @@ test.describe('accessibilité : audit axe-core (WCAG 2.2 AA)', () => {
   });
 
   test('fiche film', async ({ page }) => {
-    await page.goto('/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49');
+    await page.goto('/films/8392');
     await expectNoA11yViolations(page);
   });
 
@@ -116,7 +116,7 @@ test.describe('accessibilité : préférences et liens', () => {
   });
 
   test('toutes les cibles tactiles font au moins 24 × 24 px (WCAG 2.5.8)', async ({ page }) => {
-    await page.goto('/films/dc2e6bd1-8156-4886-adff-b39e6043af0c');
+    await page.goto('/films/129');
     const tooSmall = await page.evaluate(() =>
       [...document.querySelectorAll('a, button, input')]
         .filter((el) => el.getClientRects().length && !el.classList.contains('sr-only'))

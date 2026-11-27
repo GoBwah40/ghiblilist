@@ -30,7 +30,7 @@ Cocher chaque ligne, noter dans « Constaté » ce qui est réellement entendu e
 | 9   | Entrée sur une carte                   | Changement de page annoncé ; titre « Castle in the Sky · The GhibliList »                                           |     |          |
 | 10  | VO + Cmd + H sur la fiche              | Niveau 1 = titre du film, niveau 2 « Synopsis »                                                                     |     |          |
 | 11  | Lire la bannière (VO + flèche droite)  | Titre japonais prononcé avec une voix japonaise, puis le titre romanisé                                             |     |          |
-| 12  | Lire les détails                       | Paires « Director, Hayao Miyazaki », « Score, 95/100 »… ; aucune image annoncée                                     |     |          |
+| 12  | Lire les détails                       | Paires « Director, Hayao Miyazaki », « TMDB rating, …/10 »… ; aucune image annoncée                                     |     |          |
 | 13  | Tab jusqu'à « Back to the list »       | « Back to the list, lien » (la flèche n'est pas lue)                                                                |     |          |
 | 14  | Tab sur les icônes GitHub / LinkedIn   | « GitHub (opens in a new tab), lien »                                                                               |     |          |
 | 15  | Ouvrir /films/inconnu                  | Page 404 annoncée                                                                                                   |     |          |

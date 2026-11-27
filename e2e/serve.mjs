@@ -4,7 +4,7 @@ import { spawn, execSync } from 'node:child_process';
 
 const env = {
   ...process.env,
-  GHIBLI_API_URL: 'http://127.0.0.1:4010',
+  TMDB_API_URL: 'http://127.0.0.1:4010',
   NEXT_DIST_DIR: '.next-e2e',
 };
 
