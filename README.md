@@ -1,38 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The GhibliList
 
-## Getting Started
+Catalogue of Studio Ghibli feature films: posters, banner, synopsis, director, producer, release date, score and duration for each film, plus a search across English, original and romanised titles.
 
-First, run the development server:
+Data comes from the community [Studio Ghibli API](https://ghibliapi.vercel.app/). Pages are generated at build time and revalidated once a day (ISR), so the site stays up even if the API is briefly unavailable.
+
+## Stack
+
+- [Next.js 16](https://nextjs.org/) (Pages Router, static generation + ISR), React 19, TypeScript
+- [Tailwind CSS 4](https://tailwindcss.com/) and [daisyUI 5](https://daisyui.com/)
+- ESLint 9 (`eslint-config-next`), Prettier, Vitest + Testing Library
+
+## Getting started
+
+Requires Node.js 20.9 or later.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+| Command             | Description                   |
+| ------------------- | ----------------------------- |
+| `npm run dev`       | Development server            |
+| `npm run build`     | Production build              |
+| `npm start`         | Serve the production build    |
+| `npm run lint`      | ESLint                        |
+| `npm run typecheck` | TypeScript check              |
+| `npm test`          | Unit tests (Vitest)           |
+| `npm run pretty`    | Format the code with Prettier |
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Project layout
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+components/   Navbar, footer, film card, banner, detail block
+lib/ghibli.ts Studio Ghibli API client, data normalisation and search
+model/        Film type
+pages/        Home page (/) and film page (/films/[id])
+__tests__/    Unit tests
+```
