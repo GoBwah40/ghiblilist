@@ -43,6 +43,6 @@ Cocher chaque ligne, noter dans « Constaté » ce qui est réellement entendu e
 
 ## Résultat
 
-- Date du test :
-- macOS / Safari :
-- Écarts constatés et corrections :
+- Date du test : 27 novembre 2026
+- macOS / Safari : macOS 27.2.1, Safari 27.2
+- Écarts constatés et corrections : aucun, les 15 étapes sont conformes.

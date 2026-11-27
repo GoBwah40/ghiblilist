@@ -25,7 +25,7 @@ Checked automatically on every CI run:
 - Playwright keyboard scenarios: skip link, reaching a film with the keyboard only, visible focus ring, `prefers-reduced-motion`, 24 × 24 px targets
 - [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) on the home and film pages, accessibility score asserted at 100 (`npm run lighthouse`)
 
-Automated tools catch only part of the issues, so a manual screen-reader pass is described in [docs/test-voiceover.md](docs/test-voiceover.md) (VoiceOver + Safari).
+Automated tools catch only part of the issues, so the site was also tested by hand with VoiceOver + Safari (15-step protocol, all passed on 27 Nov 2026): see [docs/test-voiceover.md](docs/test-voiceover.md).
 
 Contrast, reflow and target sizes were also measured in the browser at 1280 px and 320 px.
 
