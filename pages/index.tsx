@@ -1,57 +1,80 @@
-import React, { useState, useEffect } from 'react';
-import { Card } from './components/card';
-;
+import { useMemo, useState } from 'react';
+import type { GetStaticProps } from 'next';
+import Card from '@/components/card';
+import { fetchFilms, filterFilms } from '@/lib/ghibli';
+import type { Film } from '@/model/film';
 
+interface HomePageProps {
+  films: Film[];
+}
 
-function HomePage() {
+// Les films sont récupérés au build puis régénérés au plus une fois par jour (ISR) :
+// le site reste en ligne même si l'API est momentanément indisponible.
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+  const films = await fetchFilms();
+  return { props: { films }, revalidate: 60 * 60 * 24 };
+};
 
+export default function HomePage({ films }: HomePageProps) {
+  const [query, setQuery] = useState('');
+  const visibleFilms = useMemo(() => filterFilms(films, query), [films, query]);
 
-  var [films, setFilms] = useState<Film[]>();
-  if (films == null || films == undefined){
-    films = [];
-  }
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const uri = 'films'; // Modifier avec l'URI souhaité
-        const response = await fetch(`http://localhost:3000/api/ghibliApi`);
-        const data: Film[] = await response.json();
-        setFilms(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
-
-    fetchData();
-  }, []);
+  const firstYear = films[0]?.release_date;
+  const lastYear = films.at(-1)?.release_date;
+  const resultMessage =
+    visibleFilms.length === 0
+      ? `No film matches “${query.trim()}”.`
+      : `${visibleFilms.length} film${visibleFilms.length > 1 ? 's' : ''} shown.`;
 
   return (
-      <ul className='grid grid-cols-5 gap-4 pt-10'>
-          {films.map((film, index) => (
-            <li className='p-1' key={film.id}>
-              <Card film={{
-                desciption: film.description,
-                title: film.title,
-                image: film.image,
-                id: film.id,
-                movie_banner: film.movie_banner,
-                original_title_romanised: film.original_title_romanised 
-              }}></Card>
+    <div className="mx-auto max-w-7xl px-3 py-6 sm:px-6 sm:py-10">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="font-title text-3xl font-bold sm:text-4xl">Studio Ghibli films</h1>
+          <p className="text-muted">
+            {films.length} feature films, from {firstYear} to {lastYear}.
+          </p>
+        </div>
+        <form role="search" className="w-full sm:w-72" onSubmit={(event) => event.preventDefault()}>
+          <label htmlFor="film-search" className="mb-1 block text-sm font-semibold">
+            Search a film
+          </label>
+          <input
+            id="film-search"
+            type="search"
+            className="input w-full rounded-field border-(length:--border-w) border-accent bg-field text-ink placeholder:text-muted"
+            placeholder="e.g. Totoro, Chihiro…"
+            autoComplete="off"
+            aria-describedby="search-help"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+          <p id="search-help" className="mt-1 text-xs text-muted">
+            English, Japanese or romanised title.
+          </p>
+        </form>
+      </div>
+
+      {/* Région live (WCAG 4.1.3) : le nombre de résultats est annoncé pendant la saisie. */}
+      <p
+        role="status"
+        className={visibleFilms.length === 0 ? 'py-10 text-center text-muted' : 'sr-only'}
+      >
+        {query.trim() ? resultMessage : ''}
+      </p>
+
+      {visibleFilms.length > 0 && (
+        <ul
+          aria-label="Films"
+          className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5"
+        >
+          {visibleFilms.map((film, index) => (
+            <li key={film.id}>
+              <Card film={film} index={index} priority={index < 2} />
             </li>
           ))}
-      </ul>
+        </ul>
+      )}
+    </div>
   );
 }
-
-function removeMoviesContainingInput(input: string, list: Film[]): Film[] {
-  // Utilisez la méthode filter pour créer une nouvelle liste sans les films contenant "input"
-  const filteredList = list.filter((movie) => !movie.title.includes(input));
-  list = filteredList;
-  return list;
-}
-
-
-export default HomePage;
-
-
