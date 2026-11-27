@@ -12,3 +12,32 @@ body {
   background-color: var(--color-ink);
   color: white;
 }
+
+/*
+ * Focus clavier toujours visible (WCAG 2.4.7 / 2.4.11) : anneau blanc doublé de noir,
+ * lisible sur le fond sombre comme sur le bleu de la navbar et du footer.
+ */
+:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px black;
+}
+
+/* Mouvements réduits (WCAG 2.3.3) : on coupe animations et transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mode contraste élevé de Windows : les bordures décoratives et le focus restent visibles. */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline-color: Highlight;
+  }
+}

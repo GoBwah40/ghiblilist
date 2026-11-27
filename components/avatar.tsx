@@ -8,9 +8,11 @@ interface AvatarProps {
 const Avatar = ({ label, value }: AvatarProps) => {
   return (
     <div className="flex flex-col items-center gap-2 p-2 text-center">
-      <dt className="underline">{label}</dt>
-      <Image src="/ghibli_avatar.png" alt="" width={40} height={49} className="rounded" />
-      <dd className="text-lg font-bold sm:text-xl">{value}</dd>
+      <dt className="text-sm font-semibold tracking-wide text-white/75 uppercase">{label}</dt>
+      <dd className="flex flex-col items-center gap-2 text-lg font-bold sm:text-xl">
+        <Image src="/ghibli_avatar.png" alt="" width={40} height={49} className="rounded" />
+        {value}
+      </dd>
     </div>
   );
 };

@@ -16,11 +16,14 @@ const Banner = ({ image, title, subtitle }: BannerProps) => {
         sizes="(min-width: 1024px) 66vw, 100vw"
         className="object-cover"
       />
-      <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 p-4 text-center">
+      {/* Voile sombre + ombre portée : le texte reste lisible même sur une zone claire de l'image. */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 p-4 text-center [text-shadow:0_2px_8px_rgb(0_0_0/0.9)]">
         <p className="text-3xl font-bold sm:text-5xl" lang="ja">
           {title}
         </p>
-        <p className="mt-2 text-xl font-bold sm:text-3xl">{subtitle}</p>
+        <p className="mt-2 text-xl font-bold sm:text-3xl" lang="ja-Latn">
+          {subtitle}
+        </p>
       </div>
     </div>
   );

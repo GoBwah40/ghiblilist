@@ -4,11 +4,29 @@ Catalogue of Studio Ghibli feature films: posters, banner, synopsis, director, p
 
 Data comes from the community [Studio Ghibli API](https://ghibliapi.vercel.app/). Pages are generated at build time and revalidated once a day (ISR), so the site stays up even if the API is briefly unavailable.
 
+## Accessibility
+
+The site targets **WCAG 2.2 level AA**.
+
+- **Keyboard**: a "Skip to main content" link is the first focusable element. Every link and field has a visible focus ring (white ring + black halo, readable on both the dark background and the blue header).
+- **Contrast**: every text is at least 5.6:1 (AA asks for 4.5:1), and black on the Ghibli blue is 7:1. Text over the film banners stays above 5.7:1 even on the brightest image.
+- **Screen readers**: semantic landmarks (header, nav, main, footer), one `h1` per page, a page title per film, decorative images hidden (`alt=""`), Japanese titles tagged with `lang="ja"`. External links say they open a new tab.
+- **Search**: the field has a visible label and help text, and the number of results is announced as you type (`role="status"`).
+- **Responsive**: no horizontal scroll down to 320 px wide (reflow); every touch target is at least 24 × 24 px.
+- **Preferences**: animations are disabled when `prefers-reduced-motion` is set; the focus ring follows the system colour in Windows high-contrast mode.
+
+Checked automatically on every CI run:
+
+- `eslint-plugin-jsx-a11y` in **strict** mode (`npm run lint`)
+- [axe-core](https://github.com/dequelabs/axe-core) on the home and film pages, WCAG 2.0 → 2.2 A/AA rules (`npm test`)
+
+Contrast, reflow and target sizes were also measured in the browser at 1280 px and 320 px.
+
 ## Stack
 
 - [Next.js 16](https://nextjs.org/) (Pages Router, static generation + ISR), React 19, TypeScript
 - [Tailwind CSS 4](https://tailwindcss.com/) and [daisyUI 5](https://daisyui.com/)
-- ESLint 9 (`eslint-config-next`), Prettier, Vitest + Testing Library
+- ESLint 9 (`eslint-config-next`, `jsx-a11y` strict), Prettier, Vitest + Testing Library + axe-core
 
 ## Getting started
 

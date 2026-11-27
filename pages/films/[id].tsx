@@ -42,7 +42,7 @@ export default function FilmPage({ film }: FilmPageProps) {
         <meta name="description" content={film.description.slice(0, 160)} />
       </Head>
       <div className="mx-auto flex max-w-7xl flex-col gap-4 px-3 py-6 sm:px-6 md:flex-row">
-        <aside className="mx-auto w-2/3 max-w-xs shrink-0 md:mx-0 md:w-1/3 md:max-w-sm">
+        <div className="mx-auto w-2/3 max-w-xs shrink-0 md:mx-0 md:w-1/3 md:max-w-sm">
           <div className="overflow-hidden rounded-xl border-4 border-ghibli">
             <Image
               src={film.image}
@@ -55,7 +55,7 @@ export default function FilmPage({ film }: FilmPageProps) {
             />
           </div>
           <h1 className="py-2 text-center text-2xl font-bold sm:text-3xl">{film.title}</h1>
-        </aside>
+        </div>
 
         <div className="flex min-w-0 flex-1 flex-col gap-4">
           <Banner
@@ -64,14 +64,22 @@ export default function FilmPage({ film }: FilmPageProps) {
             subtitle={film.original_title_romanised}
           />
           <div className="flex flex-col gap-4 lg:flex-row">
-            <dl className="grid grid-cols-2 rounded-xl border-4 border-ghibli sm:grid-cols-3 lg:w-3/5">
+            <dl
+              aria-label="Film details"
+              className="grid grid-cols-2 rounded-xl border-4 border-ghibli sm:grid-cols-3 lg:w-3/5"
+            >
               {details.map((detail) => (
                 <Avatar key={detail.label} label={detail.label} value={detail.value} />
               ))}
             </dl>
-            <section className="rounded-xl border-4 border-ghibli lg:w-2/5">
-              <h2 className="py-1 text-center text-xl font-bold underline">Synopsis</h2>
-              <p className="p-3 text-justify">{film.description}</p>
+            <section
+              aria-labelledby="synopsis"
+              className="rounded-xl border-4 border-ghibli lg:w-2/5"
+            >
+              <h2 id="synopsis" className="pt-2 text-center text-xl font-bold">
+                Synopsis
+              </h2>
+              <p className="p-3 leading-relaxed">{film.description}</p>
             </section>
           </div>
         </div>
@@ -81,7 +89,7 @@ export default function FilmPage({ film }: FilmPageProps) {
           href="/"
           className="btn btn-lg border-ghibli bg-ghibli text-black hover:brightness-110"
         >
-          ← Back to the list
+          <span aria-hidden="true">←</span> Back to the list
         </Link>
       </div>
     </>

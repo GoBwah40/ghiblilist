@@ -20,6 +20,7 @@ describe('Card', () => {
       'href',
       '/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49',
     );
-    expect(screen.getByAltText('My Neighbor Totoro poster')).toBeInTheDocument();
+    // L'affiche est décorative : le titre nomme déjà le lien.
+    expect(screen.getByRole('link')).toHaveAccessibleName(/^My Neighbor Totoro/);
   });
 });
