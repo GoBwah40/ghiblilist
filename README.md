@@ -2,7 +2,7 @@
 
 Catalogue of Studio Ghibli feature films: posters, banner, synopsis, director, producer, release date, rating and duration for each film, plus a search across English, original and romanised titles. Four themes, WCAG 2.2 AA.
 
-**Live site:** [ghiblilist-gobwah40.vercel.app](https://ghiblilist-gobwah40.vercel.app) once the Vercel deployment is done (see _Deploying on Vercel_).
+**Live site:** [ghiblilist.vercel.app](https://ghiblilist.vercel.app) once the Vercel deployment is done (see _Deploying on Vercel_).
 
 Data comes from [TMDB](https://www.themoviedb.org/) (Studio Ghibli = company 10342): every animated feature film the studio has released, with posters, banners, synopsis, director, producer, runtime and TMDB rating. The community Studio Ghibli API used until 2026 has been frozen since 2022 and stopped at 2021. Pages are generated at build time and revalidated once a day (ISR), so new films appear on their own and the site stays up even if TMDB is briefly unavailable.
 
@@ -53,11 +53,10 @@ npm run dev
 
 ### Deploying on Vercel
 
-The Vercel project `ghiblilist` is connected to this repository: every push creates a Preview deployment, and the default branch (`dev`) deploys to production at [ghiblilist-gobwah40.vercel.app](https://ghiblilist-gobwah40.vercel.app).
+The Vercel project `ghiblilist` is connected to this repository: every push creates a Preview deployment, and the default branch (`dev`) deploys to production at [ghiblilist.vercel.app](https://ghiblilist.vercel.app).
 
 1. Project Settings → Environment Variables: add `TMDB_API_KEY` for Production and Preview (without it the build stops with an explicit message).
 2. Redeploy. The Node.js version comes from `engines` in `package.json` (Node 26), whatever the project setting says.
-3. Optional: Settings → Domains to add a shorter `*.vercel.app` alias, e.g. `ghiblilist.vercel.app` if it is still free.
 
 Then open [http://localhost:3000](http://localhost:3000).
 
