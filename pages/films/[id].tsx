@@ -43,7 +43,7 @@ export default function FilmPage({ film }: FilmPageProps) {
       </Head>
       <div className="mx-auto flex max-w-7xl flex-col gap-4 px-3 py-6 sm:px-6 md:flex-row">
         <div className="mx-auto w-2/3 max-w-xs shrink-0 md:mx-0 md:w-1/3 md:max-w-sm">
-          <div className="overflow-hidden rounded-xl border-4 border-ghibli">
+          <div className="frame overflow-hidden">
             <Image
               src={film.image}
               alt={`${film.title} poster`}
@@ -51,10 +51,13 @@ export default function FilmPage({ film }: FilmPageProps) {
               height={900}
               sizes="(min-width: 768px) 33vw, 66vw"
               className="h-auto w-full"
-              priority
+              preload
+              fetchPriority="high"
             />
           </div>
-          <h1 className="py-2 text-center text-2xl font-bold sm:text-3xl">{film.title}</h1>
+          <h1 className="py-2 text-center font-title text-2xl font-bold sm:text-3xl">
+            {film.title}
+          </h1>
         </div>
 
         <div className="flex min-w-0 flex-1 flex-col gap-4">
@@ -66,17 +69,14 @@ export default function FilmPage({ film }: FilmPageProps) {
           <div className="flex flex-col gap-4 lg:flex-row">
             <dl
               aria-label="Film details"
-              className="grid grid-cols-2 rounded-xl border-4 border-ghibli sm:grid-cols-3 lg:w-3/5"
+              className="frame grid grid-cols-2 bg-surface sm:grid-cols-3 lg:w-3/5"
             >
               {details.map((detail) => (
                 <Avatar key={detail.label} label={detail.label} value={detail.value} />
               ))}
             </dl>
-            <section
-              aria-labelledby="synopsis"
-              className="rounded-xl border-4 border-ghibli lg:w-2/5"
-            >
-              <h2 id="synopsis" className="pt-2 text-center text-xl font-bold">
+            <section aria-labelledby="synopsis" className="frame bg-surface lg:w-2/5">
+              <h2 id="synopsis" className="pt-2 text-center font-title text-xl font-bold">
                 Synopsis
               </h2>
               <p className="p-3 leading-relaxed">{film.description}</p>
@@ -87,7 +87,7 @@ export default function FilmPage({ film }: FilmPageProps) {
       <div className="flex justify-center pb-10 pt-4">
         <Link
           href="/"
-          className="btn btn-lg border-ghibli bg-ghibli text-black hover:brightness-110"
+          className="btn btn-lg rounded-field border-accent bg-accent text-on-accent hover:brightness-110"
         >
           <span aria-hidden="true">←</span> Back to the list
         </Link>

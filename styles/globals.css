@@ -3,24 +3,318 @@
   themes: dark --default;
 }
 
-@theme {
-  --color-ghibli: #079dec;
-  --color-ink: #282c34;
+/*
+ * Quatre thèmes : aquarelle (clair), nuit, showa (affiche), foret.
+ * Chaque thème définit les mêmes jetons ; les composants n'utilisent que ces jetons
+ * (bg-page, text-ink, bg-surface, border-line, bg-accent…). Contrastes vérifiés AA.
+ */
+@theme inline {
+  --color-page: var(--page);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-bar: var(--bar);
+  --color-on-bar: var(--on-bar);
+  --color-field: var(--field);
+  --font-title: var(--font-title-theme);
+  --font-body: var(--font-body-theme);
+  --radius-card: var(--card-radius);
+  --radius-field: var(--field-radius);
+}
+
+/* Ciel nocturne : défaut sans JavaScript */
+:root,
+:root[data-theme='nuit'] {
+  color-scheme: dark;
+  --page: #0e1530;
+  --ink: #eef1ff;
+  --muted: #aeb6d9;
+  --surface: #18214a;
+  --line: #ffffff26;
+  --accent: #ffcf70;
+  --on-accent: #1b1606;
+  --bar: #0a1026;
+  --on-bar: #eef1ff;
+  --field: #121a3d;
+  --card-radius: 16px;
+  --field-radius: 999px;
+  --border-w: 1px;
+  --veil: rgb(14 21 48 / 0.7);
+  --page-art:
+    radial-gradient(1px 1px at 12% 20%, #fff 50%, #0000),
+    radial-gradient(1px 1px at 40% 8%, #fff 50%, #0000),
+    radial-gradient(1.5px 1.5px at 72% 15%, #fff 50%, #0000),
+    radial-gradient(1px 1px at 88% 40%, #fff 50%, #0000),
+    radial-gradient(1px 1px at 25% 60%, #fff9 50%, #0000),
+    radial-gradient(1px 1px at 60% 75%, #fff9 50%, #0000),
+    radial-gradient(ellipse at 80% -10%, #3a4c9a 0, #0000 50%);
+  --logo-tile: #18214a;
+  --logo-sun: #ffcf70;
+  --logo-h1: #2b3a78;
+  --logo-h2: #4b5fb3;
+  --logo-ink: #eef1ff;
+  /* Couleurs daisyUI (champs, boutons) alignées sur le thème */
+  --color-base-100: var(--surface);
+  --color-base-content: var(--ink);
+}
+
+:root[data-theme='aquarelle'] {
+  color-scheme: light;
+  --page: #f7f1e3;
+  --ink: #2d2a24;
+  --muted: #5d564a;
+  --surface: #fffaf0;
+  --line: #d9ccb0;
+  --accent: #2a70a5;
+  --on-accent: #ffffff;
+  --bar: #f7f1e3;
+  --on-bar: #2d2a24;
+  --field: #fffaf0;
+  --card-radius: 18px;
+  --field-radius: 12px;
+  --border-w: 1px;
+  --veil: rgb(20 40 62 / 0.62);
+  --page-art:
+    radial-gradient(circle at 15% 0%, #cfe3ef99 0, #0000 30%),
+    radial-gradient(circle at 90% 5%, #f4d9a077 0, #0000 28%);
+  --logo-tile: #2a70a5;
+  --logo-sun: #f4c56a;
+  --logo-h1: #8fb98a;
+  --logo-h2: #5f9a64;
+  --logo-ink: #fffaf0;
+  --color-base-100: var(--surface);
+  --color-base-content: var(--ink);
+}
+
+:root[data-theme='showa'] {
+  color-scheme: light;
+  --page: #f2ede3;
+  --ink: #141414;
+  --muted: #4a4741;
+  --surface: #ffffff;
+  --line: #141414;
+  --accent: #c8321f;
+  --on-accent: #ffffff;
+  --bar: #141414;
+  --on-bar: #f2ede3;
+  --field: #ffffff;
+  --card-radius: 0;
+  --field-radius: 0;
+  --border-w: 2px;
+  --veil: rgb(150 30 15 / 0.8);
+  --page-art: none;
+  --logo-tile: #c8321f;
+  --logo-sun: #f2ede3;
+  --logo-h1: #141414;
+  --logo-h2: #141414;
+  --logo-ink: #f2ede3;
+  --color-base-100: var(--surface);
+  --color-base-content: var(--ink);
+}
+
+:root[data-theme='foret'] {
+  color-scheme: dark;
+  --page: #17271d;
+  --ink: #eef0e2;
+  --muted: #b9c4ac;
+  --surface: #213829;
+  --line: #c9e27a40;
+  --accent: #c9e27a;
+  --on-accent: #17271d;
+  --bar: #0f1c14;
+  --on-bar: #eef0e2;
+  --field: #102016;
+  --card-radius: 28px 6px 28px 6px;
+  --field-radius: 14px 4px 14px 4px;
+  --border-w: 1px;
+  --veil: rgb(15 28 20 / 0.7);
+  --page-art:
+    radial-gradient(ellipse at 0% 0%, #2d4a33 0, #0000 45%),
+    radial-gradient(ellipse at 100% 100%, #26402c 0, #0000 40%);
+  --logo-tile: #213829;
+  --logo-sun: #f2d16b;
+  --logo-h1: #3e6b47;
+  --logo-h2: #6f9f58;
+  --logo-ink: #eef0e2;
+  --color-base-100: var(--surface);
+  --color-base-content: var(--ink);
+}
+
+/* Polices : les variables next/font sont posées sur .app-root, les jetons y sont résolus. */
+.app-root,
+[data-theme='nuit'] .app-root {
+  --font-title-theme: var(--font-rounded), system-ui, sans-serif;
+  --font-body-theme: var(--font-rounded), system-ui, sans-serif;
+}
+[data-theme='aquarelle'] .app-root {
+  --font-title-theme: var(--font-fraunces), Georgia, serif;
+  --font-body-theme: var(--font-nunito), system-ui, sans-serif;
+}
+[data-theme='showa'] .app-root {
+  --font-title-theme: var(--font-dela), 'Arial Black', sans-serif;
+  --font-body-theme: var(--font-inter), system-ui, sans-serif;
+}
+[data-theme='foret'] .app-root {
+  --font-title-theme: var(--font-dmserif), Georgia, serif;
+  --font-body-theme: var(--font-nunito), system-ui, sans-serif;
+}
+.app-root {
+  font-family: var(--font-body-theme);
 }
 
 body {
-  background-color: var(--color-ink);
-  color: white;
+  background-color: var(--page);
+  background-image: var(--page-art);
+  background-attachment: fixed;
+  color: var(--ink);
+}
+
+/* Bordure des cartes et cadres, épaisseur propre à chaque thème */
+.frame {
+  border: var(--border-w) solid var(--line);
+  border-radius: var(--card-radius);
+}
+
+/* ===== Logotype « The GhibliList » : un seul balisage, quatre styles ===== */
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1;
+  color: var(--on-bar);
+  white-space: nowrap;
+}
+.wordmark .wm-jp,
+.wordmark .wm-sub,
+.wordmark .wm-leaf,
+.wordmark .wm-br {
+  display: none;
+}
+
+[data-theme='aquarelle'] .wordmark {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+}
+[data-theme='aquarelle'] .wm-name {
+  position: relative;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--accent);
+}
+[data-theme='aquarelle'] .wm-name::after {
+  content: '';
+  position: absolute;
+  left: 2%;
+  right: 4%;
+  bottom: -0.35em;
+  height: 0.35em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5 C30 1 60 8 118 3' stroke='%23f4c56a' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")
+    no-repeat center / 100% 100%;
+}
+
+:root:not([data-theme]) .wordmark,
+[data-theme='nuit'] .wordmark {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  font-family: var(--font-rounded), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+:root:not([data-theme]) .wm-name,
+[data-theme='nuit'] .wm-name {
+  color: var(--accent);
+  text-shadow: 0 0 14px #ffcf7088;
+}
+:root:not([data-theme]) .wm-sub,
+[data-theme='nuit'] .wm-sub {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  color: var(--muted);
+}
+
+[data-theme='showa'] .wordmark {
+  font-family: var(--font-dela), 'Arial Black', sans-serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+[data-theme='showa'] .wm-jp {
+  display: block;
+  writing-mode: vertical-rl;
+  font-family: system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  background: var(--accent);
+  color: #fff;
+  padding: 4px 2px;
+}
+[data-theme='showa'] .wm-br {
+  display: block;
+}
+[data-theme='showa'] .wm-name {
+  color: #e8553f;
+}
+
+[data-theme='foret'] .wordmark {
+  gap: 0;
+  font-family: var(--font-dmserif), Georgia, serif;
+  font-size: 1.6rem;
+}
+[data-theme='foret'] .wm-list {
+  font-style: italic;
+  color: var(--accent);
+}
+[data-theme='foret'] .wm-leaf {
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  background: var(--accent);
+  border-radius: 0 100% 0 100%;
+  transform: translateY(-0.55em) rotate(-10deg);
+  margin-left: 2px;
+}
+
+/* Affiche Shōwa : titres en capitales, numéros de films visibles */
+[data-theme='showa'] h1 {
+  text-transform: uppercase;
+}
+.film-number {
+  display: none;
+}
+[data-theme='showa'] .film-number {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-dela), sans-serif;
+  font-size: 0.85rem;
+  padding: 4px 8px;
 }
 
 /*
- * Focus clavier toujours visible (WCAG 2.4.7 / 2.4.11) : anneau blanc doublé de noir,
- * lisible sur le fond sombre comme sur le bleu de la navbar et du footer.
+ * Focus clavier toujours visible (WCAG 2.4.7 / 2.4.11) : anneau de la couleur du texte,
+ * doublé d'un halo de la couleur du fond, lisible dans les quatre thèmes.
  */
 :focus-visible {
-  outline: 3px solid white;
+  outline: 3px solid var(--ink);
   outline-offset: 2px;
-  box-shadow: 0 0 0 6px black;
+  box-shadow: 0 0 0 6px var(--page);
+}
+header :focus-visible,
+footer :focus-visible {
+  outline-color: var(--on-bar);
+  box-shadow: 0 0 0 6px var(--bar);
 }
 
 /* Mouvements réduits (WCAG 2.3.3) : on coupe animations et transitions. */
@@ -35,7 +329,7 @@ body {
   }
 }
 
-/* Mode contraste élevé de Windows : les bordures décoratives et le focus restent visibles. */
+/* Mode contraste élevé de Windows : le focus suit la couleur système. */
 @media (forced-colors: active) {
   :focus-visible {
     outline-color: Highlight;

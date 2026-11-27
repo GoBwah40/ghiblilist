@@ -15,6 +15,27 @@ async function expectNoA11yViolations(page: Page) {
   expect(summary, 'violations axe-core').toEqual([]);
 }
 
+const THEMES = ['aquarelle', 'nuit', 'showa', 'foret'] as const;
+
+for (const theme of THEMES) {
+  test.describe(`accessibilité : thème ${theme} (axe-core, contrastes compris)`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.addInitScript((t) => localStorage.setItem('theme', t), theme);
+    });
+
+    test("page d'accueil", async ({ page }) => {
+      await page.goto('/');
+      await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
+      await expectNoA11yViolations(page);
+    });
+
+    test('fiche film', async ({ page }) => {
+      await page.goto('/films/dc2e6bd1-8156-4886-adff-b39e6043af0c');
+      await expectNoA11yViolations(page);
+    });
+  });
+}
+
 test.describe('accessibilité : audit axe-core (WCAG 2.2 AA)', () => {
   test("page d'accueil", async ({ page }) => {
     await page.goto('/');
@@ -84,7 +105,7 @@ test.describe('accessibilité : préférences et liens', () => {
 
   test("les liens externes s'ouvrent dans un nouvel onglet et l'annoncent", async ({ page }) => {
     await page.goto('/');
-    const external = page.locator('a[target="_blank"]');
+    const external = page.locator('a[target="_blank"]:visible');
     const count = await external.count();
     expect(count).toBeGreaterThan(0);
     for (let i = 0; i < count; i++) {

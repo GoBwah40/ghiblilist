@@ -1,52 +1,40 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import ExternalLink from '@/components/external-link';
-
-const socialLinks = [
-  {
-    label: 'Studio Ghibli API',
-    href: 'https://ghibliapi.vercel.app/',
-    icon: '/logos/ghibliLogo.png',
-  },
-  { label: 'GitHub', href: 'https://github.com/GoBwah40', icon: '/logos/githubLogo.png' },
-  {
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/matthias-della-libera-9b6721174/',
-    icon: '/logos/linkedInLogo.png',
-  },
-];
+import { GitHubIcon, LinkedInIcon } from '@/components/icons';
+import Logo from '@/components/logo';
+import ThemeSelect from '@/components/theme-select';
+import Wordmark from '@/components/wordmark';
 
 const Navbar = () => {
   return (
-    <header className="navbar gap-2 bg-ghibli px-2 text-black sm:px-4">
-      <div className="navbar-start w-auto flex-1">
-        <Link
-          href="/"
-          className="btn h-auto gap-2 px-1 py-1 text-lg font-bold whitespace-nowrap text-black btn-ghost hover:bg-black/10 sm:text-2xl"
-        >
-          <Image
-            src="/logos/logo.svg"
-            alt=""
-            width={48}
-            height={48}
-            className="size-10 sm:size-12"
-            priority
-          />
-          The GhibliList
-        </Link>
-      </div>
-      <nav className="navbar-end w-auto gap-1" aria-label="Links">
-        {socialLinks.map((link) => (
+    <header className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b-(length:--border-w) border-line bg-bar px-3 py-2 text-on-bar sm:px-5">
+      <Link
+        href="/"
+        className="flex min-h-12 items-center gap-2.5 rounded-field px-1 py-1 sm:gap-3"
+      >
+        <Logo className="size-10 shrink-0 sm:size-11" />
+        <Wordmark />
+      </Link>
+      <div className="ml-auto flex items-center gap-1 sm:gap-2">
+        <ThemeSelect />
+        {/* Doublés dans le pied de page : masqués sur petit écran pour laisser la place. */}
+        <nav aria-label="Links" className="hidden items-center gap-1 sm:flex">
           <ExternalLink
-            key={link.href}
-            href={link.href}
-            label={link.label}
-            className="btn btn-square text-black btn-ghost hover:bg-black/10"
+            href="https://github.com/GoBwah40"
+            label="GitHub"
+            className="btn btn-square text-on-bar btn-ghost hover:bg-on-bar/10"
           >
-            <Image src={link.icon} alt="" width={32} height={32} className="size-6 sm:size-8" />
+            <GitHubIcon className="size-6" />
           </ExternalLink>
-        ))}
-      </nav>
+          <ExternalLink
+            href="https://www.linkedin.com/in/matthias-della-libera-9b6721174/"
+            label="LinkedIn"
+            className="btn btn-square text-on-bar btn-ghost hover:bg-on-bar/10"
+          >
+            <LinkedInIcon className="size-6" />
+          </ExternalLink>
+        </nav>
+      </div>
     </header>
   );
 };

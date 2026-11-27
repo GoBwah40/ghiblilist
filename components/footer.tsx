@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import ExternalLink from '@/components/external-link';
+import { GitHubIcon, LinkedInIcon } from '@/components/icons';
 
 const stackLinks = [
   { label: 'Next.js', href: 'https://nextjs.org/' },
@@ -8,18 +8,9 @@ const stackLinks = [
   { label: 'Studio Ghibli API', href: 'https://ghibliapi.vercel.app/' },
 ];
 
-const socialLinks = [
-  { label: 'GitHub', href: 'https://github.com/GoBwah40', icon: '/logos/githubLogo.png' },
-  {
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/matthias-della-libera-9b6721174/',
-    icon: '/logos/linkedInLogo.png',
-  },
-];
-
 const Footer = () => {
   return (
-    <footer className="bg-ghibli text-black">
+    <footer className="border-t-(length:--border-w) border-line bg-bar text-on-bar">
       <div className="footer justify-around p-5 sm:footer-horizontal">
         <nav aria-labelledby="footer-stack">
           <h2 id="footer-stack" className="footer-title opacity-80">
@@ -36,22 +27,30 @@ const Footer = () => {
             Social networks
           </h2>
           <div className="flex gap-2">
-            {socialLinks.map((link) => (
-              <ExternalLink
-                key={link.href}
-                href={link.href}
-                label={link.label}
-                className="btn btn-square text-black btn-ghost hover:bg-black/10"
-              >
-                <Image src={link.icon} alt="" width={20} height={20} />
-              </ExternalLink>
-            ))}
+            <ExternalLink
+              href="https://github.com/GoBwah40"
+              label="GitHub"
+              className="btn btn-square text-on-bar btn-ghost hover:bg-on-bar/10"
+            >
+              <GitHubIcon className="size-5" />
+            </ExternalLink>
+            <ExternalLink
+              href="https://www.linkedin.com/in/matthias-della-libera-9b6721174/"
+              label="LinkedIn"
+              className="btn btn-square text-on-bar btn-ghost hover:bg-on-bar/10"
+            >
+              <LinkedInIcon className="size-5" />
+            </ExternalLink>
           </div>
         </nav>
       </div>
       <div className="flex flex-col items-center gap-1 px-5 pb-6 text-center">
-        <div className="mb-3 h-0.5 w-2/3 bg-black" aria-hidden="true" />
-        <Image src="/logos/gobwah.png" alt="" width={28} height={28} />
+        <div className="mb-3 h-0.5 w-2/3 bg-on-bar/60" aria-hidden="true" />
+        {/* Logo personnel en masque CSS : il prend la couleur du texte du thème. */}
+        <span
+          aria-hidden="true"
+          className="size-7 bg-current [mask:url(/logos/gobwah.png)_center/contain_no-repeat]"
+        />
         <p>Made and built by Matthias Della Libera</p>
         <p>Copyright © 2023 - All rights reserved</p>
       </div>

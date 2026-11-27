@@ -8,7 +8,7 @@ interface BannerProps {
 
 const Banner = ({ image, title, subtitle }: BannerProps) => {
   return (
-    <div className="relative h-48 overflow-hidden rounded-xl border-4 border-ghibli sm:h-64 lg:h-80">
+    <div className="frame relative h-48 overflow-hidden sm:h-64 lg:h-80">
       <Image
         src={image}
         alt=""
@@ -17,7 +17,7 @@ const Banner = ({ image, title, subtitle }: BannerProps) => {
         className="object-cover"
       />
       {/* Voile sombre + ombre portée : le texte reste lisible même sur une zone claire de l'image. */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 p-4 text-center [text-shadow:0_2px_8px_rgb(0_0_0/0.9)]">
+      <div className="absolute inset-0 flex flex-col items-center justify-center bg-(--veil) p-4 text-white text-center [text-shadow:0_2px_8px_rgb(0_0_0/0.9)]">
         <p className="text-3xl font-bold sm:text-5xl" lang="ja">
           {title}
         </p>

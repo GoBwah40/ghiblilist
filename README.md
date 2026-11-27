@@ -8,7 +8,7 @@ Data comes from the community [Studio Ghibli API](https://ghibliapi.vercel.app/)
 
 The site targets **WCAG 2.2 level AA**.
 
-**Lighthouse (mobile, throttled): Accessibility 100 · Best Practices 100 · SEO 100 · Performance 94–99.** The accessibility score is enforced in CI: the build fails if it drops below 100.
+**Lighthouse (mobile, throttled): Accessibility 100 · Best Practices 100 · SEO 100 · Performance 89–92.** The accessibility score is enforced in CI: the build fails if it drops below 100.
 
 - **Keyboard**: a "Skip to main content" link is the first focusable element. Every link and field has a visible focus ring (white ring + black halo, readable on both the dark background and the blue header).
 - **Contrast**: every text is at least 5.6:1 (AA asks for 4.5:1), and black on the Ghibli blue is 7:1. Text over the film banners stays above 5.7:1 even on the brightest image.
@@ -21,7 +21,7 @@ Checked automatically on every CI run:
 
 - `eslint-plugin-jsx-a11y` in **strict** mode (`npm run lint`)
 - [axe-core](https://github.com/dequelabs/axe-core) on the components, WCAG 2.0 → 2.2 A/AA rules (`npm test`)
-- axe-core again in a real Chromium, desktop and mobile, on the home page, a search with no result, a film page and the 404 — this run includes colour contrast (`npm run test:e2e`)
+- axe-core again in a real Chromium, desktop and mobile, on the home page and a film page **in each of the four themes**, plus a search with no result and the 404 — this run includes colour contrast (`npm run test:e2e`)
 - Playwright keyboard scenarios: skip link, reaching a film with the keyboard only, visible focus ring, `prefers-reduced-motion`, 24 × 24 px targets
 - [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) on the home and film pages, accessibility score asserted at 100 (`npm run lighthouse`)
 
@@ -71,9 +71,22 @@ npm run test:e2e                  # or npm run test:e2e:ui to watch them run
 
 The build goes to `.next-e2e/`, so it never overwrites a running `npm run dev`.
 
+## Themes
+
+Four art directions, picked from the navbar (**Theme** select). By default the site follows the device setting: _Watercolour_ in light mode, _Night sky_ in dark mode. The choice is saved in `localStorage` and applied by a small inline script before the first paint, so there is no flash of the wrong theme.
+
+| Theme        | Mood                                                | Fonts                    |
+| ------------ | --------------------------------------------------- | ------------------------ |
+| Watercolour  | Cream paper, washed sky, sketchbook (light)         | Fraunces, Nunito         |
+| Night sky    | Starry navy blue, lantern yellow                    | M PLUS Rounded 1c        |
+| Shōwa poster | 1960s Japanese film poster: cream, vermilion, black | Dela Gothic One, Inter   |
+| Forest       | Deep moss green, leaf-shaped corners                | DM Serif Display, Nunito |
+
+Every theme defines the same CSS tokens (`styles/globals.css`); components only use those tokens. The wordmark and the logo restyle themselves per theme while their accessible name stays "The GhibliList". Fonts are not preloaded: the browser only downloads the ones of the active theme.
+
 ## Logo
 
-`public/logos/logo.svg` is the source of every icon (favicon, Apple touch icon, PWA icons): a checklist under a sun, over two hills in the site's blue. It is an original design and uses no Studio Ghibli artwork.
+`public/logos/logo.svg` is the source of every icon (the navbar uses an inline copy, `components/logo.tsx`, whose colours follow the theme) (favicon, Apple touch icon, PWA icons): a checklist under a sun, over two hills in the site's blue. It is an original design and uses no Studio Ghibli artwork.
 
 ## Project layout
 

@@ -91,7 +91,6 @@ describe('liens', () => {
     render(<Navbar />);
     const links = screen.getAllByRole('link', { name: /opens in a new tab/ });
     expect(links.map((l) => l.textContent)).toEqual([
-      'Studio Ghibli API (opens in a new tab)',
       'GitHub (opens in a new tab)',
       'LinkedIn (opens in a new tab)',
     ]);
