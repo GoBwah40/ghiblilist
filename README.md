@@ -6,7 +6,7 @@ Catalogue of Studio Ghibli feature films: posters, banner, synopsis, director, p
 
 Data comes from [TMDB](https://www.themoviedb.org/) (Studio Ghibli = company 10342): every animated feature film the studio has released, with posters, banners, synopsis, director, producer, runtime and TMDB rating. The community Studio Ghibli API used until 2026 has been frozen since 2022 and stopped at 2021. Pages are generated at build time and revalidated once a day (ISR), so new films appear on their own and the site stays up even if TMDB is briefly unavailable.
 
-Short films (under 60 minutes), non-animated titles, unreleased films and films not produced by Ghibli are filtered out (`lib/ghibli.ts`).
+Short films (under 60 minutes), non-animated titles (documentaries, making-ofs, stage plays), unreleased films and films not produced by Ghibli are filtered out, plus two titles excluded by hand: a Takahata documentary and _Ghost in the Shell 2: Innocence_, a Production I.G film Ghibli only co-produced (`lib/ghibli.ts`). In November 2026 that leaves **24 films, from _Castle in the Sky_ (1986) to _The Boy and the Heron_ (2023)**, including the TV film _Ocean Waves_ that Ghibli lists in its own filmography.
 
 _This product uses the TMDB API but is not endorsed or certified by TMDB._
 

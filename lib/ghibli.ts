@@ -15,10 +15,13 @@ export const GHIBLI_COMPANY_ID = 10342;
 const MIN_RUNTIME = 60;
 const ANIMATION_GENRE_ID = 16;
 /**
- * Films attribués à Ghibli sur TMDB mais hors de la filmographie retenue
- * (documentaires, compilations…). À compléter au vu des données réelles.
+ * Films attribués à Ghibli sur TMDB, classés « Animation » et de plus de 60 min, mais hors de
+ * la filmographie du studio (vérifié sur les données TMDB en novembre 2026).
  */
-export const EXCLUDED_IDS = new Set<number>([]);
+export const EXCLUDED_IDS = new Set<number>([
+  141897, // The Story of Yanagawa Waterways (1987) : documentaire d'Isao Takahata
+  12140, // Ghost in the Shell 2: Innocence (2004) : film Production I.G, Ghibli coproducteur
+]);
 
 interface TmdbCrew {
   job: string;
@@ -74,14 +77,31 @@ async function tmdbJson<T>(path: string, params?: Record<string, string>): Promi
 }
 
 const LATIN = /^[\p{Script=Latin}\p{N}\p{P}\p{Zs}]+$/u;
+const JAPANESE = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u;
+
+/** Vrai si le texte contient des caractères japonais (pour l'attribut lang). */
+export const isJapanese = (text: string) => JAPANESE.test(text);
+
+/**
+ * Pertinence d'un type de titre alternatif TMDB pour le rōmaji (saisi librement :
+ * « romaji », « Rōmaji », « Hepburn romanization », « romaji alternative »…).
+ */
+function romajiRank(type: string): number {
+  const t = type.trim().toLowerCase();
+  if (!t) return 1;
+  if (/alt|informal|literal/.test(t)) return 2;
+  if (/r[oō]u?maji|romani[sz]|hepburn|translit|kunrei/.test(t)) return 3;
+  return 0;
+}
 
 /** Titre japonais en rōmaji, choisi parmi les titres alternatifs japonais en alphabet latin. */
 export function pickRomanisedTitle(movie: TmdbMovie): string {
-  const jp = (movie.alternative_titles?.titles ?? []).filter((t) => t.iso_3166_1 === 'JP');
-  const romaji =
-    jp.find((t) => /romaji|romanization|romanized/i.test(t.type) && LATIN.test(t.title)) ??
-    jp.find((t) => LATIN.test(t.title) && t.title !== movie.title);
-  return romaji?.title ?? '';
+  const candidates = (movie.alternative_titles?.titles ?? [])
+    .filter((t) => t.iso_3166_1 === 'JP' && LATIN.test(t.title) && t.title !== movie.title)
+    .map((t, index) => ({ title: t.title, rank: romajiRank(t.type), index }))
+    .filter((t) => t.rank > 0)
+    .sort((a, b) => b.rank - a.rank || a.index - b.index);
+  return candidates[0]?.title ?? '';
 }
 
 const crew = (movie: TmdbMovie, job: string) =>

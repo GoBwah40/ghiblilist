@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { isJapanese } from '@/lib/ghibli';
 
 interface BannerProps {
   image: string;
@@ -18,12 +19,14 @@ const Banner = ({ image, title, subtitle }: BannerProps) => {
       />
       {/* Voile sombre + ombre portée : le texte reste lisible même sur une zone claire de l'image. */}
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-(--veil) p-4 text-white text-center [text-shadow:0_2px_8px_rgb(0_0_0/0.9)]">
-        <p className="text-3xl font-bold sm:text-5xl" lang="ja">
+        <p className="text-3xl font-bold sm:text-5xl" lang={isJapanese(title) ? 'ja' : undefined}>
           {title}
         </p>
-        <p className="mt-2 text-xl font-bold sm:text-3xl" lang="ja-Latn">
-          {subtitle}
-        </p>
+        {subtitle && (
+          <p className="mt-2 text-xl font-bold sm:text-3xl" lang="ja-Latn">
+            {subtitle}
+          </p>
+        )}
       </div>
     </div>
   );

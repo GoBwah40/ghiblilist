@@ -84,6 +84,31 @@ describe('pickRomanisedTitle', () => {
     ).toBe('Tonari no Totoro');
     expect(pickRomanisedTitle(movie({ alternative_titles: { titles: [] } }))).toBe('');
   });
+
+  it('préfère la graphie principale à une variante « alternative » (cas réel TMDB)', () => {
+    expect(
+      pickRomanisedTitle(
+        movie({
+          title: 'The Boy and the Heron',
+          alternative_titles: {
+            titles: [
+              {
+                iso_3166_1: 'JP',
+                title: 'Kimi-tachi wa dō ikiru ka',
+                type: 'alternative Hepburn romanization',
+              },
+              { iso_3166_1: 'JP', title: 'Kimitachi wa dō ikiru ka', type: 'Hepburn romanization' },
+              {
+                iso_3166_1: 'JP',
+                title: 'From Kokuriko Hill',
+                type: 'informal literal English title',
+              },
+            ],
+          },
+        }),
+      ),
+    ).toBe('Kimitachi wa dō ikiru ka');
+  });
 });
 
 describe('isGhibliFeature', () => {
@@ -100,6 +125,9 @@ describe('isGhibliFeature', () => {
     expect(isGhibliFeature(movie({ release_date: '2027-07-01' }), today)).toBe(false);
     expect(isGhibliFeature(movie({ release_date: '' }), today)).toBe(false);
     expect(isGhibliFeature(movie({ poster_path: null }), today)).toBe(false);
+    // Exclusions explicites : documentaire (Yanagawa), film Production I.G (Innocence).
+    expect(isGhibliFeature(movie({ id: 141897 }), today)).toBe(false);
+    expect(isGhibliFeature(movie({ id: 12140 }), today)).toBe(false);
   });
 });
 
