@@ -2,7 +2,8 @@ import type { Film } from '@/model/film';
 
 // L'ancienne API (ghibliapi.herokuapp.com) est hors ligne depuis la fin des offres gratuites
 // de Heroku ; le projet communautaire est désormais servi par Vercel.
-export const GHIBLI_API_URL = 'https://ghibliapi.vercel.app';
+// GHIBLI_API_URL permet de pointer vers un faux serveur (tests end-to-end).
+export const GHIBLI_API_URL = process.env.GHIBLI_API_URL ?? 'https://ghibliapi.vercel.app';
 
 const FILM_FIELDS = [
   'id',

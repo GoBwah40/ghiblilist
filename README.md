@@ -18,7 +18,9 @@ The site targets **WCAG 2.2 level AA**.
 Checked automatically on every CI run:
 
 - `eslint-plugin-jsx-a11y` in **strict** mode (`npm run lint`)
-- [axe-core](https://github.com/dequelabs/axe-core) on the home and film pages, WCAG 2.0 → 2.2 A/AA rules (`npm test`)
+- [axe-core](https://github.com/dequelabs/axe-core) on the components, WCAG 2.0 → 2.2 A/AA rules (`npm test`)
+- axe-core again in a real Chromium, desktop and mobile, on the home page, a search with no result, a film page and the 404 — this run includes colour contrast (`npm run test:e2e`)
+- Playwright keyboard scenarios: skip link, reaching a film with the keyboard only, visible focus ring, `prefers-reduced-motion`, 24 × 24 px targets
 
 Contrast, reflow and target sizes were also measured in the browser at 1280 px and 320 px.
 
@@ -26,7 +28,7 @@ Contrast, reflow and target sizes were also measured in the browser at 1280 px a
 
 - [Next.js 16](https://nextjs.org/) (Pages Router, static generation + ISR), React 19, TypeScript
 - [Tailwind CSS 4](https://tailwindcss.com/) and [daisyUI 5](https://daisyui.com/)
-- ESLint 9 (`eslint-config-next`, `jsx-a11y` strict), Prettier, Vitest + Testing Library + axe-core
+- ESLint 9 (`eslint-config-next`, `jsx-a11y` strict), Prettier, Vitest + Testing Library + axe-core, Playwright
 
 ## Getting started
 
@@ -49,7 +51,19 @@ Then open [http://localhost:3000](http://localhost:3000).
 | `npm run lint`      | ESLint                        |
 | `npm run typecheck` | TypeScript check              |
 | `npm test`          | Unit tests (Vitest)           |
+| `npm run test:e2e`  | End-to-end tests (Playwright) |
 | `npm run pretty`    | Format the code with Prettier |
+
+## End-to-end tests
+
+Playwright runs the production build against a local fake of the Studio Ghibli API (`e2e/fixture-server.mjs`, data frozen in `e2e/fixtures/films.json`), so the tests don't depend on the network. Each scenario runs on desktop Chrome and on a mobile viewport (Pixel 7).
+
+```bash
+npx playwright install chromium   # first time only
+npm run test:e2e                  # or npm run test:e2e:ui to watch them run
+```
+
+The build goes to `.next-e2e/`, so it never overwrites a running `npm run dev`.
 
 ## Project layout
 
@@ -59,4 +73,5 @@ lib/ghibli.ts Studio Ghibli API client, data normalisation and search
 model/        Film type
 pages/        Home page (/) and film page (/films/[id])
 __tests__/    Unit tests
+e2e/          Playwright scenarios and API fixture server
 ```

@@ -10,5 +10,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
+    // Les scénarios Playwright vivent dans e2e/ et ont leur propre lanceur.
+    exclude: ['**/node_modules/**', 'e2e/**', '.next/**', '.next-e2e/**'],
   },
 });
