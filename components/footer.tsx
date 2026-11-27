@@ -49,7 +49,7 @@ const Footer = () => {
         {/* Logo personnel en masque CSS : il prend la couleur du texte du thème. */}
         <span
           aria-hidden="true"
-          className="size-7 bg-current [mask:url(/logos/gobwah.png)_center/contain_no-repeat]"
+          className="size-7 bg-current [mask:url(/logos/gobwah.svg)_center/contain_no-repeat]"
         />
         <p>Made and built by Matthias Della Libera</p>
         <p>Copyright © 2023 - All rights reserved</p>
