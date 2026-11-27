@@ -1,50 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { Film } from '@/model/film';
-import Card from './components/card';
+import { useMemo, useState } from 'react';
+import type { GetStaticProps } from 'next';
+import Card from '@/components/card';
+import { fetchFilms, filterFilms } from '@/lib/ghibli';
+import type { Film } from '@/model/film';
 
-function HomePage() {
-  const [films, setFilms] = useState<Film[]>([]);
-  if (films == null || films == undefined) {
-    setFilms([]);
-  }
+interface HomePageProps {
+  films: Film[];
+}
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(`http://localhost:3000/api/ghibliApi`);
-        const data: Film[] = await response.json();
-        setFilms(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
+// Les films sont récupérés au build puis régénérés au plus une fois par jour (ISR) :
+// le site reste en ligne même si l'API est momentanément indisponible.
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+  const films = await fetchFilms();
+  return { props: { films }, revalidate: 60 * 60 * 24 };
+};
 
-    fetchData();
-  }, []);
+export default function HomePage({ films }: HomePageProps) {
+  const [query, setQuery] = useState('');
+  const visibleFilms = useMemo(() => filterFilms(films, query), [films, query]);
 
   return (
-    <ul className="grid grid-cols-5 gap-4 pt-10">
-      {films.map((film) => (
-        <li className="p-1" key={film.id}>
-          <Card
-            desciption={film.description}
-            title={film.title}
-            image={film.image}
-            id={film.id}
-            movie_banner={film.movie_banner}
-            original_title_romanised={film.original_title_romanised}
+    <div className="mx-auto max-w-7xl px-3 py-6 sm:px-6 sm:py-10">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-bold sm:text-4xl">Studio Ghibli films</h1>
+          <p className="text-white/70">{films.length} feature films, from 1986 to today.</p>
+        </div>
+        <label className="input w-full border-ghibli sm:w-72">
+          <span className="sr-only">Search a film</span>
+          <input
+            type="search"
+            placeholder="Search a film…"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
           />
-        </li>
-      ))}
-    </ul>
+        </label>
+      </div>
+
+      {visibleFilms.length > 0 ? (
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
+          {visibleFilms.map((film, index) => (
+            <li key={film.id}>
+              <Card film={film} priority={index < 5} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="py-10 text-center text-white/70" role="status">
+          No film matches “{query}”.
+        </p>
+      )}
+    </div>
   );
 }
-
-function removeMoviesContainingInput(input: string, list: Film[]): Film[] {
-  // Utilisez la méthode filter pour créer une nouvelle liste sans les films contenant "input"
-  const filteredList = list.filter((movie) => !movie.title.includes(input));
-  list = filteredList;
-  return list;
-}
-
-export default HomePage;
