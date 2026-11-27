@@ -58,7 +58,7 @@ async function tmdbFetch(path: string, params: Record<string, string> = {}): Pro
   const key = process.env.TMDB_API_KEY;
   if (!key && !process.env.TMDB_API_URL) {
     throw new Error(
-      'TMDB_API_KEY manquante : créez une clé sur themoviedb.org et ajoutez-la à .env.local (voir README).',
+      'TMDB_API_KEY manquante : créez une clé sur themoviedb.org, puis ajoutez-la à .env.local en local ou aux variables d’environnement du projet Vercel (voir README).',
     );
   }
   const url = new URL(path, TMDB_API_URL);
