@@ -1,6 +1,8 @@
 # The GhibliList
 
-Catalogue of Studio Ghibli feature films: posters, banner, synopsis, director, producer, release date, score and duration for each film, plus a search across English, original and romanised titles.
+Catalogue of Studio Ghibli feature films: posters, banner, synopsis, director, producer, release date, rating and duration for each film, plus a search across English, original and romanised titles. Four themes, WCAG 2.2 AA.
+
+**Live site:** coming soon at [ghiblilist.vercel.app](https://ghiblilist.vercel.app) (Vercel deployment pending).
 
 Data comes from [TMDB](https://www.themoviedb.org/) (Studio Ghibli = company 10342): every animated feature film the studio has released, with posters, banners, synopsis, director, producer, runtime and TMDB rating. The community Studio Ghibli API used until 2026 has been frozen since 2022 and stopped at 2021. Pages are generated at build time and revalidated once a day (ISR), so new films appear on their own and the site stays up even if TMDB is briefly unavailable.
 
@@ -41,7 +43,7 @@ Contrast, reflow and target sizes were also measured in the browser at 1280 px a
 
 ## Getting started
 
-Requires Node.js 20.9 or later and a free TMDB API key ([themoviedb.org → Settings → API](https://www.themoviedb.org/settings/api)). Either the v3 API key or the v4 read access token works.
+Requires **Node.js 22.22+, 24.15+ or 26+** (the test tooling — Vitest, jsdom, Lighthouse CI — needs it; the app alone would run on Node 20.9+) and a free TMDB API key ([themoviedb.org → Settings → API](https://www.themoviedb.org/settings/api)). Either the v3 API key or the v4 read access token works.
 
 ```bash
 cp .env.example .env.local   # then paste your key after TMDB_API_KEY=
@@ -93,15 +95,22 @@ Every theme defines the same CSS tokens (`styles/globals.css`); components only 
 
 ## Logo
 
-`public/logos/logo.svg` is the source of every icon (the navbar uses an inline copy, `components/logo.tsx`, whose colours follow the theme) (favicon, Apple touch icon, PWA icons): a checklist under a sun, over two hills in the site's blue. It is an original design and uses no Studio Ghibli artwork.
+`public/logos/logo.svg` is the app logo and the source of every icon (favicon, Apple touch icon, PWA icons): a checklist under a sun, over two hills in the site's blue. The navbar uses an inline copy (`components/logo.tsx`) whose colours follow the theme. It is an original design and uses no Studio Ghibli artwork.
+
+The eight-pointed star with the kanji 家 in the footer, next to "Made and built by…", is not the app logo: it is the author's personal signature (GoBwah40), `public/logos/gobwah.svg`, the same mark as on the author’s portfolio.
 
 ## Project layout
 
 ```
-components/   Navbar, footer, film card, banner, detail block
-lib/ghibli.ts TMDB client, Ghibli filmography filter, mapping and search
-model/        Film type
-pages/        Home page (/) and film page (/films/[id])
-__tests__/    Unit tests
-e2e/          Playwright scenarios and API fixture server
+pages/          Home page (/), film page (/films/[id]), _app (layout, fonts), _document (theme script)
+components/     Navbar, footer, film card, banner, details, wordmark, logo, theme select, icons
+lib/ghibli.ts   TMDB client, Ghibli filmography filter, mapping and search
+lib/theme.ts    The four themes, saved choice and no-flash bootstrap script
+model/          Film type
+styles/         globals.css: Tailwind, theme tokens, wordmark styles, focus ring
+fonts/          Self-hosted Latin subsets of the two Japanese fonts (see fonts/README.md)
+public/         Logos, icons, web manifest
+docs/           Manual VoiceOver test protocol and its result
+__tests__/      Unit tests (Vitest, Testing Library, axe-core)
+e2e/            Playwright scenarios, fake TMDB server and its fixtures, Lighthouse server
 ```
